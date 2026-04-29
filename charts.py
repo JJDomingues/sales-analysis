@@ -22,3 +22,17 @@ plt.savefig('clientes_por_cidade.png')
 plt.show()
 
 print("Gráfico salvo!")
+
+# Gráfico 2 - Média de idade por cidade
+media_idade = df.groupby('city')['age'].mean().round(1)
+
+plt.figure(figsize=(8, 5))
+plt.bar(media_idade.index, media_idade.values, color='coral')
+plt.title('Média de Idade por Cidade')
+plt.xlabel('Cidade')
+plt.ylabel('Idade Média')
+plt.tight_layout()
+plt.savefig('media_idade_por_cidade.png')
+plt.show()
+
+print("Segundo gráfico salvo!")
