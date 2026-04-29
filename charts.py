@@ -36,3 +36,18 @@ plt.savefig('media_idade_por_cidade.png')
 plt.show()
 
 print("Segundo gráfico salvo!")
+
+# Gráfico 3 - Total de vendas por cidade
+conn2 = sqlite3.connect('sales.db')
+df_sales = pd.read_sql_query("SELECT city, SUM(amount) as total FROM sales GROUP BY city", conn2)
+conn2.close()
+
+plt.figure(figsize=(8, 5))
+plt.bar(df_sales['city'], df_sales['total'], color='green')
+plt.title('Total de Vendas por Cidade (R$)')
+plt.xlabel('Cidade')
+plt.ylabel('Total (R$)')
+plt.tight_layout()
+plt.savefig('vendas_por_cidade.png')
+plt.show()
+print("Terceiro gráfico salvo!")
