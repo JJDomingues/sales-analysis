@@ -51,3 +51,24 @@ plt.tight_layout()
 plt.savefig('vendas_por_cidade.png')
 plt.show()
 print("Terceiro gráfico salvo!")
+
+# Gráfico 4 - Total de vendas por cliente (JOIN)
+conn3 = sqlite3.connect('sales.db')
+df_join = pd.read_sql_query("""
+    SELECT c.name, SUM(s.amount) as total
+    FROM sales s
+    JOIN customers c ON s.customer_id = c.id
+    GROUP BY c.name
+    ORDER BY total DESC
+""", conn3)
+conn3.close()
+
+plt.figure(figsize=(10, 6))
+plt.barh(df_join['name'], df_join['total'], color='purple')
+plt.title('Total de Vendas por Cliente (R$)')
+plt.xlabel('Total (R$)')
+plt.gca().invert_yaxis()
+plt.tight_layout()
+plt.savefig('vendas_por_cliente.png')
+plt.show()
+print("Quarto gráfico salvo!")
